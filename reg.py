@@ -46,7 +46,7 @@ class UserInDB(User):
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 #это нужно для проверки аутентификации перед доступом к защищенным эндпоинтам или ресурсам
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth")
 
 app = FastAPI()
 
@@ -137,7 +137,7 @@ async def register(username: str, password: str):
     return {"username": username}
 
 
-@app.post("/token", response_model=Token)
+@app.post("/auth", response_model=Token)
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
 ):
